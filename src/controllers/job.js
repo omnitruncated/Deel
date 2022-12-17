@@ -17,7 +17,12 @@ const updateJobById = async (req, res) => {
     const job = await updateJob(id, client);
     res.json(job);
   } catch (error) {
-    return res.status(error.statusCode).end();
+    return res
+      .status(error.statusCode)
+      .send({
+        message: error.message,
+      })
+      .end();
   }
 };
 

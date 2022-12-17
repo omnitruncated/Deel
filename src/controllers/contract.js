@@ -17,7 +17,12 @@ const getContractById = async (req, res) => {
     const contract = await getContractsById(id, userId);
     res.json(contract);
   } catch (error) {
-    return res.status(error.statusCode).end();
+    return res
+      .status(error.statusCode)
+      .send({
+        message: error.message,
+      })
+      .end();
   }
 };
 

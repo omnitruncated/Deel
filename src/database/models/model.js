@@ -79,7 +79,7 @@ Profile.hasMany(Contract, { as: 'Contractor', foreignKey: 'ContractorId' });
 Contract.belongsTo(Profile, { as: 'Contractor' });
 Profile.hasMany(Contract, { as: 'Client', foreignKey: 'ClientId' });
 Contract.belongsTo(Profile, { as: 'Client' });
-Contract.hasMany(Job);
+Contract.hasMany(Job, { foreignKey: 'ContractId' });
 Job.belongsTo(Contract);
 
 module.exports = {

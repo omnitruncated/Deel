@@ -6,6 +6,11 @@ const getAllActiveContracts = async () =>
     where: { status: { [Op.not]: 'terminated' } },
   });
 
+const getAllActiveContractsByUserId = async (userId) =>
+  Contract.findAll({
+    where: { ClientId: userId, status: { [Op.not]: 'terminated' } },
+  });
+
 const getContract = async (id, userId) =>
   Contract.findOne({
     where: { id },
@@ -37,6 +42,7 @@ const checkIfContractbelongs = async (id, userId) =>
   });
 
 module.exports = {
+  getAllActiveContractsByUserId,
   getAllActiveContracts,
   checkIfContractbelongs,
   checkIfProfileExists,
