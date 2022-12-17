@@ -1,7 +1,6 @@
 const { deposit } = require('../services/balance');
 
 const depositToAClient = async (req, res) => {
-  // const user = req.profile;
   const clientId = req.params.userId;
   const quantity = parseFloat(req.headers.quantity);
 
