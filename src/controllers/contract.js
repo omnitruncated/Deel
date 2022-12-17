@@ -1,4 +1,7 @@
-const { getActiveContracts, getContractsById } = require('../service/contract');
+const {
+  getActiveContracts,
+  getContractsById,
+} = require('../services/contract');
 
 const getContracts = async (req, res) => {
   try {

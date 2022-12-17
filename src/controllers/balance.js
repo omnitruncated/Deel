@@ -1,4 +1,4 @@
-const { deposit } = require('../service/balance');
+const { deposit } = require('../services/balance');
 
 const depositToAClient = async (req, res) => {
   // const user = req.profile;

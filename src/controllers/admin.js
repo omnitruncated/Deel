@@ -1,7 +1,7 @@
 const {
   getHighestPaidProfession,
   getHighestPaymentClients,
-} = require('../service/admin');
+} = require('../services/admin');
 
 const getBestProfession = async (req, res) => {
   const start = req.query.start;

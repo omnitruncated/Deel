@@ -1,4 +1,4 @@
-const { getAllUnpaidJobs, updateJob } = require('../service/job');
+const { getAllUnpaidJobs, updateJob } = require('../services/job');
 
 const getUnpaidJobs = async (req, res) => {
   try {
