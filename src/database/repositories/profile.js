@@ -1,10 +1,22 @@
 const { Op } = require('sequelize');
 const { Profile, Contract, Job, sequelize } = require('../models/model');
 
-const payment = async (id, newBalance) =>
-  Profile.update({ balance: newBalance }, { where: { id } }).then(() =>
-    Profile.findOne({ where: { id } })
-  );
+const payment = async (id, newBalance) => {
+  const t = await sequelize.transaction();
+  try {
+    const profileUpdate = await Profile.update(
+      { balance: newBalance },
+      { where: { id } },
+      { transaction: t }
+    ).then(() => Profile.findOne({ where: { id } }));
+
+    await t.commit();
+    return profileUpdate;
+  } catch (error) {
+    await t.rollback();
+    throw error;
+  }
+};
 
 const getProfileById = async (id) =>
   await Profile.findOne({

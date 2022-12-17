@@ -1,4 +1,4 @@
-const { Job } = require('../../database/models/model');
+const { Job, sequelize } = require('../../database/models/model');
 
 const getUnpaidJobs = async () => await Job.findAll({ where: { paid: null } });
 const getUnpaidJobsByUserId = async (userId) =>
@@ -10,10 +10,21 @@ const getUnpaidJobsByContractId = async (id) =>
 const getJobById = async (id) => Job.findOne({ where: { id } });
 
 const updateJobById = async (id) => {
-  return await Job.update(
-    { paid: 1, paymentDate: Date.now() },
-    { where: { id } }
-  );
+  const t = await sequelize.transaction();
+
+  try {
+    const jobUpdate = await Job.update(
+      { paid: 1, paymentDate: Date.now() },
+      { where: { id } },
+      { transaction: t }
+    );
+    await t.commit();
+
+    return jobUpdate;
+  } catch (error) {
+    await t.rollback();
+    throw error;
+  }
 };
 
 module.exports = {
